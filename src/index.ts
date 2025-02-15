@@ -58,7 +58,8 @@ function imagePromptAI() {
             }
         }
 
-        return "File not found put your file in src/assets/images diractory."
+        console.log("File not found put your file in src/assets/images diractory.");
+        return false;
     }
 
     rl.question("File name:> ", function (fileName) {
@@ -67,8 +68,17 @@ function imagePromptAI() {
             console.log("You are exit...");
             return;
         }
+        
+        console.log("Image file should present in src/assets/images folder...");
+
         rl.question("Prompt:> ", async function (prompt) {
             const filePath = getFileFullPath(fileName);
+
+            if (!filePath) {
+                rl.close();
+                return;
+            }
+
             const fileType = mime.lookup(filePath);
 
             if (!fileType) {
@@ -102,5 +112,9 @@ function run_genAI() {
 }
 
 run_genAI()
+
+//Prompt to get the expiry data and menufecturing date of the product as per in the image 
+
+// Return me only the expiry and menufecturing date as per in image in a json form and except this don't return any information about the product yes you can only return the type of product is you are able to detect and again strictly follow the json format
 
 
